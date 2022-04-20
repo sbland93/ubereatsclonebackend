@@ -69,3 +69,30 @@ npm i corss-env
 
 ### 참고
 package.json 변경시에 재시작 필요.
+
+
+
+### typeORM
+active record pattern, 
+`
+mongoose 느낌으로 사용가능
+`
+- 작은 앱에 사용 가능
+
+
+data-mapper pattern도 거의 비슷한데, Repository.find({skip:2, ..});
+`
+const userRepository = connection.getRepository(User);
+`
+- 좀더 대규모 앱에 유용
+이걸 택할 예정임 -- Test할때나 구현 서비스에서 injection에서 repository기능이 nestjs에 이미 존재하기 때문.
+
+
+
+### Mapped Type
+(base class -> Mapped Class 개념)
+basetype을 바탕으로 Mapped Type을 만들어줌.
+PartialType - all field not required.
+PickType - selecting some property
+OmitType - except some field.
+Intersection type - combine types.

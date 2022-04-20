@@ -6,6 +6,7 @@ import { join } from 'path';
 import { RestaurantsModule } from './restaurants/restaurants.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { Restaurant } from './restaurants/entities/restaurant.entity';
 
 @Module({
   imports: [
@@ -29,8 +30,9 @@ import { ConfigModule } from '@nestjs/config';
       password:process.env.DB_PASSWORD,
       database:process.env.DB_NAME,
       type: "postgres",
-      synchronize: true, //typeorm연결시에 migration
-      logging: true,
+      synchronize: process.env.NODE_ENV !== "prod", //typeorm연결시에 migration 자동으로 table 만들어줌.
+      logging: process.env.NODE_ENV !== "prod",          // 모든 로그 확인.
+      entities: [Restaurant] //이걸 통해서 Restaurant의 table이 생기고, db가 되는 것.
     }),
     GraphQLModule.forRoot({
       driver: ApolloDriver,
